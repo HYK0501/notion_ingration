@@ -16,8 +16,12 @@ function getItemMap( item : any ){
     let map = new Map( Object.entries( item.properties) )
     let mapResult : Map< string , any > = new Map() 
     map.forEach( (  value : any , key : string ) => {
-            if( key == '品項' ){
-                mapResult.set( key , value.title[0].plain_text )
+            if( value.type == "title" ){
+                let titleStr = ""
+                value.title.forEach( ( text : any ) => {
+                    titleStr = titleStr.concat( text.plain_text )
+                });
+                mapResult.set( key , titleStr )
             }else{
                 mapResult.set( key , value[ value.type ] )
             }
